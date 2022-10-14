@@ -5,13 +5,13 @@ defmodule LittleBankWeb.BankAccountLive.TransactionComponent do
   def transaction_list_item(assigns) do
     ~H"""
     <article class={article_classes()}>
-      <section class="font-mono">
+      <section class="font-mono group-hover:text-primary-content">
         <%= format_date(@trx.date) %>
       </section>
-      <section class="prose order-last row-span-2 md:order-none md:row-span-1 font-light">
+      <section class="prose order-last row-span-2 md:order-none md:row-span-1 text-sm group-hover:text-primary-content">
         <%= vendor_and_note(@trx) %>
       </section>
-      <section class={["font-mono text-right min-w-[16ch] justify-self-end", @trx.credit && "text-accent" || ""]}>
+      <section class={["font-mono text-right min-w-[16ch] justify-self-end group-hover:text-primary-content", @trx.credit && "text-success group-hover:text-primary-content" || ""]}>
         <%= trx_sign(@trx) %><%= format_amount(@trx.amount) %>
       </section>
     </article>
@@ -19,17 +19,18 @@ defmodule LittleBankWeb.BankAccountLive.TransactionComponent do
   end
 
   defp article_classes() do
-    ~w[
+    ~w(
       w-full py-3 px-2 grid grid-cols-2 grid-rows-2
       bg-base-300 my-1 rounded-sm
+      text-base-content
+      gap-8
 
-      md:grid-cols-3 md:grid-rows-1
+      md:grid-cols-[16ch_1fr_16ch] md:grid-rows-1
 
       hover:bg-primary-focus
-      hover:text-primary-content
-      hover:shadow-sm
-      hover:border-l-4 hover:border-l-accent
-    ]
+      group
+      hover:border-l-4 hover:border-accent
+    )
   end
 
   defp trx_sign(trx) do
@@ -37,7 +38,7 @@ defmodule LittleBankWeb.BankAccountLive.TransactionComponent do
   end
 
   defp format_date(date) do
-    Calendar.strftime(date, "%m/%d/%Y")
+    Calendar.strftime(date, "%b %d %Y")
   end
 
   defp vendor_and_note(trx) do

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -9,12 +9,12 @@
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
-  <body>
+  <body class="bg-gradient-to-b from-base-100 to-base-200">
     <header>
-      <nav class="navbar bg-primary">
+      <nav class="navbar bg-gradient-to-r from-primary to-secondary shadow-lg">
         <div class="text-primary-content font-bold navbar-start">LittleBank</div>
         <div class="flex-none">
-          <ul class="menu menu-horizontal">
+          <ul class="menu menu-horizontal text-primary-content">
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
               <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
             <% end %>

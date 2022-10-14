@@ -1,7 +1,6 @@
-<div class="w-full py-3 px-1 flex justify-space-between border-b-2 border-solid border-accent mx-0 sticky top-0 bg-base-100">
-  <h2 class="flex-grow text-2xl">Balance</h2>
-  <h2 class="font-mono text-2xl"><%= @balance_fmt %></h2>
-</div>
+<%#-- <div class="w-full py-3 px-1 flex justify-space-between border-b-2 border-solid border-accent mx-0 sticky top-0 bg-base-100">
+</div> --%>
+  <h2 class="font-mono text-2xl text-right p-3 mx-1 border-b-2 border-accent sticky top-0 bg-base-300"><%= @balance_fmt %></h2>
 
 <section class="w-full py-3 px-1 transaction-list">
   <%= for trx <- @transactions do %>
