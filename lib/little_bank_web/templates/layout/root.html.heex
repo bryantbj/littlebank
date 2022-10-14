@@ -11,16 +11,30 @@
   </head>
   <body>
     <header>
-      <section class="container nav-wrapper">
-        <nav>
+      <nav class="navbar bg-primary">
+        <div class="text-primary-content font-bold navbar-start">LittleBank</div>
+        <div class="flex-none">
+          <ul class="menu menu-horizontal">
+            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+            <% end %>
+            <%= render "_user_menu.html", assigns %>
+          </ul>
+        </div>
+      </nav>
+      <% if false do %>
+        <nav class="w-full">
+          <ul class="flex-shrink flex-row space-between">
+            <li class="text-primary-content font-bold">LittleBank</li>
+          </ul>
           <ul>
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
               <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
             <% end %>
+            <%= render "_user_menu.html", assigns %>
           </ul>
-          <%= render "_user_menu.html", assigns %>
         </nav>
-      </section>
+      <% end %>
     </header>
     <%= @inner_content %>
   </body>

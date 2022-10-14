@@ -127,8 +127,19 @@ defmodule LittleBank.BankAccounts do
       [%Transaction{}, ...]
 
   """
-  def list_transaction do
+  def list_transactions do
     Repo.all(Transaction)
+  end
+
+  def list_transactions_query(%BankAccount{id: id}) do
+      from t in Transaction,
+      where: t.bank_account_id == ^id,
+      order_by: [desc: :date, desc: :inserted_at]
+  end
+
+  def list_transactions(%BankAccount{id: _id} = bank_account) do
+    list_transactions_query(bank_account)
+    |> Repo.all()
   end
 
   @doc """
@@ -147,14 +158,21 @@ defmodule LittleBank.BankAccounts do
   """
   def get_transaction!(id), do: Repo.get!(Transaction, id)
 
-  def get_last_20_transactions(%BankAccount{id: id}) do
-    q =
-      from t in Transaction,
-      where: t.bank_account_id == ^id,
-      order_by: [desc: :date, desc: :inserted_at],
-      limit: 20
+  def list_last_20_transactions(%BankAccount{id: _id} = bank_account) do
+    from(q in list_transactions_query(bank_account), limit: 20)
+    |> Repo.all()
 
-    Repo.all(q)
+    # q =
+    #   from t in Transaction,
+    #   where: t.bank_account_id == ^id,
+    #   order_by: [desc: :date, desc: :inserted_at],
+    #   limit: 20
+    # Repo.all(q)
+  end
+
+  def list_last_n_transactions(%BankAccount{id: _id} = bank_account, num) do
+    from(q in list_transactions_query(bank_account), limit: ^num)
+    |> Repo.all()
   end
 
   @doc """

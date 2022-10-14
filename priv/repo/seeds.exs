@@ -26,7 +26,7 @@ if Mix.env() == :dev do
     placeholders = %{time: timestamp}
 
   entries = [
-    %{inserted_at: {:placeholder, :time}, updated_at: {:placeholder, :time}, bank_account_id: bank_account.id, credit: true, amount: 1_200_00, vendor: "parents", note: "bday", date: ~D[2022-05-08]},
+    %{inserted_at: {:placeholder, :time}, updated_at: {:placeholder, :time}, bank_account_id: bank_account.id, credit: true, amount: 1_200_000_00, vendor: "parents", note: "bday", date: ~D[2022-05-08]},
     %{inserted_at: {:placeholder, :time}, updated_at: {:placeholder, :time}, bank_account_id: bank_account.id, credit: false, amount: 899, vendor: "roblox", note: "robux", date: ~D[2022-05-10]},
     %{inserted_at: {:placeholder, :time}, updated_at: {:placeholder, :time}, bank_account_id: bank_account.id, credit: false, amount: 499, vendor: "roblox", note: "robux", date: ~D[2022-05-22]},
     %{inserted_at: {:placeholder, :time}, updated_at: {:placeholder, :time}, bank_account_id: bank_account.id, credit: false, amount: 1999, vendor: "fortnite", note: "vbux", date: ~D[2022-05-24]},
@@ -50,5 +50,14 @@ if Mix.env() == :dev do
     %{inserted_at: {:placeholder, :time}, updated_at: {:placeholder, :time}, bank_account_id: bank_account.id, credit: false, amount: 1999, vendor: "fortnite", note: "vbux", date: ~D[2022-08-27]}
   ]
 
+  balance =
+    entries
+    |> Enum.map(& &1.amount)
+    |> Enum.sum()
+
   Repo.insert_all(Transaction, entries, placeholders: placeholders)
+
+  bank_account
+  |> BankAccounts.change_bank_account(%{balance: balance})
+  |> Repo.update()
 end

@@ -1,6 +1,8 @@
 defmodule LittleBankWeb.BankAccountLive.Show do
   use LittleBankWeb, :live_view
   import LittleBankWeb.LiveHelpers, only: [assign_user: 2, format_amount: 1]
+  import LittleBankWeb.BankAccountLive.TransactionComponent, only: [transaction_list_item: 1]
+
   alias LittleBank.{BankAccounts}
 
   def mount(_params, session, socket) do
@@ -22,6 +24,6 @@ defmodule LittleBankWeb.BankAccountLive.Show do
   end
 
   defp load_transactions(bank_account) do
-    BankAccounts.get_last_20_transactions(bank_account)
+    BankAccounts.list_last_n_transactions(bank_account, 100)
   end
 end

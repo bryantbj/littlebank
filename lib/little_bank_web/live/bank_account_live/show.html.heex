@@ -1,5 +1,10 @@
-<div id="bank-account" style="display: flex; justify-content: space-between;">
-  <h1>Balance</h1>
-  <h1><%= @balance_fmt %></h1>
-  <hr />
+<div class="w-full py-3 px-1 flex justify-space-between border-b-2 border-solid border-accent mx-0 sticky top-0 bg-base-100">
+  <h2 class="flex-grow text-2xl">Balance</h2>
+  <h2 class="font-mono text-2xl"><%= @balance_fmt %></h2>
 </div>
+
+<section class="w-full py-3 px-1 transaction-list">
+  <%= for trx <- @transactions do %>
+    <.transaction_list_item trx={trx} />
+  <% end %>
+</section>
