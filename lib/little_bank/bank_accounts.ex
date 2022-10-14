@@ -112,7 +112,8 @@ defmodule LittleBank.BankAccounts do
 
   def bank_account_transaction(%BankAccount{} = bank_account, attrs \\ %{}) do
     Multi.new()
-    |> Multi.insert(:transaction, Ecto.build_assoc(bank_account, :transactions) |> Transaction.changeset(attrs))
+    |> Multi.insert(:transaction, Ecto.build_assoc(bank_account, :transactions)
+    |> Transaction.changeset(attrs))
     |> Multi.update(:bank_account, BankAccount.balance_changeset(bank_account, attrs))
     |> Repo.transaction()
   end
