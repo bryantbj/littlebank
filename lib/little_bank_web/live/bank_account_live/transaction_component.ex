@@ -23,7 +23,7 @@ defmodule LittleBankWeb.BankAccountLive.TransactionComponent do
       w-full py-3 px-2 grid grid-cols-2 grid-rows-2
       bg-base-300 my-1 rounded-sm
       text-base-content
-      gap-8
+      gap-x-8
 
       md:grid-cols-[16ch_1fr_16ch] md:grid-rows-1
 

@@ -12,29 +12,23 @@
   <body class="bg-gradient-to-b from-base-100 to-base-200">
     <header>
       <nav class="navbar bg-gradient-to-r from-primary to-secondary shadow-lg">
-        <div class="text-primary-content font-bold navbar-start">LittleBank</div>
-        <div class="flex-none">
-          <ul class="menu menu-horizontal text-primary-content">
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-            <%= render "_user_menu.html", assigns %>
-          </ul>
+        <div class="text-primary-content font-bold navbar-start flex-grow">LittleBank</div>
+        <div class="flex-none justify-self-end">
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle text-secondary-content"><i class="fa-solid fa-bars" /></label>
+            <ul tabindex="0" class="dropdown-content menu shadow-lg bg-gradient-to-b from-accent to-accent-focus rounded-box text-secondary-content">
+              <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+                <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+              <% end %>
+              <%= render "_user_menu.html", assigns %>
+            </ul>
+          </div>
         </div>
+        <% if false do %>
+        <div class="flex-none">
+        </div>
+        <% end %>
       </nav>
-      <% if false do %>
-        <nav class="w-full">
-          <ul class="flex-shrink flex-row space-between">
-            <li class="text-primary-content font-bold">LittleBank</li>
-          </ul>
-          <ul>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-            <%= render "_user_menu.html", assigns %>
-          </ul>
-        </nav>
-      <% end %>
     </header>
     <%= @inner_content %>
   </body>
