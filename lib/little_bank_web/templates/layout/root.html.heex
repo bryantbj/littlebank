@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="night">
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -11,12 +11,12 @@
   </head>
   <body class="bg-gradient-to-b from-base-100 to-base-200">
     <header>
-      <nav class="navbar bg-gradient-to-r from-primary to-secondary shadow-lg">
-        <div class="text-primary-content font-bold navbar-start flex-grow">LittleBank</div>
+      <nav class="navbar bg-gradient-to-r from-primary to-secondary shadow-lg px-5">
+        <div class="text-primary-content font-bold navbar-start flex-grow text-2xl">LittleBank</div>
         <div class="flex-none justify-self-end">
-          <div class="dropdown dropdown-end">
+          <div class="dropdown dropdown-end ">
             <label tabindex="0" class="btn btn-ghost btn-circle text-secondary-content"><i class="fa-solid fa-bars" /></label>
-            <ul tabindex="0" class="dropdown-content menu shadow-lg bg-gradient-to-b from-accent to-accent-focus rounded-box text-secondary-content">
+            <ul tabindex="0" class="dropdown-content menu shadow-lg bg-gradient-to-b from-accent to-accent-focus rounded-box text-secondary-content border-b-2 border-primary">
               <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
                 <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
               <% end %>
