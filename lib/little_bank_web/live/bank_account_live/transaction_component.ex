@@ -24,6 +24,7 @@ defmodule LittleBankWeb.BankAccountLive.TransactionComponent do
       bg-base-300 my-1 rounded-sm
       text-base-content
       gap-x-8
+      gap-y-2
 
       md:grid-cols-[16ch_1fr_16ch] md:grid-rows-1
 
@@ -44,6 +45,6 @@ defmodule LittleBankWeb.BankAccountLive.TransactionComponent do
   defp vendor_and_note(trx) do
     [trx.vendor, trx.note]
     |> Enum.filter(& &1)
-    |> Enum.join(" / ")
+    |> Enum.join(" ∙ ")
   end
 end

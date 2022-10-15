@@ -44,7 +44,7 @@ defmodule LittleBankWeb.LiveHelpers do
         />
       </.modal>
   """
-  def modal(assigns) do
+  def modal2(assigns) do
     assigns = assign_new(assigns, :return_to, fn -> nil end)
 
     ~H"""
@@ -71,6 +71,40 @@ defmodule LittleBankWeb.LiveHelpers do
       </div>
     </div>
     """
+  end
+
+  def modal(assigns) do
+    assigns = assign_new(assigns, :return_to, fn -> nil end)
+
+    ~H"""
+    <div class="modal modal-open visible opacity-100">
+      <div
+        class="modal-box relative border-b-2 border-accent"
+        phx-click-away={JS.dispatch("click", to: "#close")}
+        phx-window-keydown={JS.dispatch("click", to: "#close")}
+        phx-key="escape"
+      >
+        <%= if @return_to do %>
+          <%= live_patch "✖",
+            to: @return_to,
+            id: "close",
+            class: close_btn_classes(),
+            phx_click: hide_modal()
+          %>
+        <% else %>
+          <a id="close" href="#" class={close_btn_classes()} phx-click={hide_modal()}>✖</a>
+        <% end %>
+        <%= render_slot(@inner_block) %>
+      </div>
+    </div>
+    """
+  end
+
+  defp close_btn_classes() do
+    ~w[
+      btn btn-sm btn-circle
+      absolute right-2 top-2
+    ]
   end
 
   defp hide_modal(js \\ %JS{}) do

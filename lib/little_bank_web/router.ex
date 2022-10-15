@@ -89,6 +89,7 @@ defmodule LittleBankWeb.Router do
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
     live "/bank_account", BankAccountLive.Show, :show
+    live "/bank_account/new", BankAccountLive.Show, :new
   end
 
   scope "/", LittleBankWeb do

@@ -1,16 +1,28 @@
+<%= if @live_action == :new do %>
+  <.modal return_to={Routes.bank_account_show_path(@socket, :show)}>
+    <h3 class="text-lg pb-2 mb-5 border-b-2 border-secondary">Add new transaction</h3>
+
+    <.live_component
+      module={LittleBankWeb.BankAccountLive.FormComponent}
+      id={:new}
+      title={@page_title}
+      action={@live_action}
+      transaction={@transaction}
+      bank_account={@bank_account}
+      return_to={Routes.bank_account_show_path(@socket, :show)}
+    />
+  </.modal>
+<% end %>
+
 <div class="p-3 mx-1 border-b-2 border-accent sticky top-0 bg-base-300 flex align-center">
   <h2 class="flex-grow">
-    <button class="btn btn-sm btn-accent gap-2">
-      <i class="fa-solid fa-plus fa-1x" />
-      Transaction
-      <%# <span class="fa-stack">
-        <i class="fa-solid fa-sack-dollar fa-stack-2x" />
-        <i class="fa-solid fa-plus fa-stack-1x" />
-      </span> --%>
-    </button>
+    <%= live_patch to: Routes.bank_account_show_path(@socket, :new), class: "btn btn-accent btn-outline btn-sm" do %>
+      <i class="fa-solid fa-plus" />&nbsp;Transaction
+    <% end %>
   </h2>
   <h2 class="font-mono text-2xl text-right"><%= @balance_fmt %></h2>
 </div>
+
 
 <section class="w-full py-3 px-1 transaction-list">
   <%= for trx <- @transactions do %>
