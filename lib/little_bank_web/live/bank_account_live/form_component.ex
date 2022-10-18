@@ -6,7 +6,7 @@ defmodule LittleBankWeb.BankAccountLive.FormComponent do
   @impl true
   def update(%{transaction: transaction, bank_account: _bank_account} = assigns, socket) do
     changeset = transaction
-    |> BankAccounts.change_transaction()
+    |> BankAccounts.transaction_form_changeset()
 
     {:ok,
      socket
@@ -25,18 +25,22 @@ defmodule LittleBankWeb.BankAccountLive.FormComponent do
   end
 
   def handle_event("save", %{"transaction" => trx_params}, socket) do
-    types = %{amount: :float, vendor: :string, note: :string, date: :date, credit: :boolean, bank_account_id: :integer}
+    # types = %{amount: :float, vendor: :string, note: :string, date: :date, credit: :boolean, bank_account_id: :integer}
 
-    trx_params = {%{}, types}
-    |> Ecto.Changeset.cast(trx_params, Map.keys(types))
-    |> Map.get(:changes)
-    |> Map.update!(:amount, & trunc(&1 * 100))
+    # trx_params = {%{}, types}
+    # |> Ecto.Changeset.cast(trx_params, Map.keys(types))
+    # trx_params
+    # |> Map.get(:changes)
+    # |> Map.update!(:amount, & trunc(&1 * 100))
 
     save_transaction(socket, socket.assigns.action, trx_params)
   end
 
   defp save_transaction(socket, :new, trx_params) do
-    case BankAccounts.bank_account_transaction(socket.assigns.bank_account, trx_params) do
+    IO.inspect(trx_params, label: "top of save_transaction")
+    IO.inspect(socket.assigns.changeset, label: "top of save_transaction/changeset")
+
+    case BankAccounts.bank_account_transaction(socket.assigns.bank_account, socket.assigns.changeset.changes) do
       {:ok, _trx} ->
         {:noreply,
          socket

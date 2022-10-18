@@ -57,21 +57,12 @@
       <div class="btn-group">
         <%= radio_button f, :credit, true,
           "data-title": "Deposit",
-          class: "btn btn-sm" %>
+          class: "btn btn-sm", phx_update: "ignore"  %>
         <%= radio_button f, :credit, false,
-          "data-title": "Purchase",
-          class: "btn btn-sm" %>
+          "data-title": "Purchase", 
+          class: "btn btn-sm", phx_update: "ignore", checked: true %>
       </div>
     </div>
-
-    <% if false do %>
-    <%= label f, :credit %>
-    <%=  checkbox f, :credit %>
-    <%= label f, :title %>
-    <%= text_input f, :title %>
-    <%= error_tag f, :title %>
-    <% end %>
-  
     <div class="modal-action">
       <%= submit "Save", class: "btn btn-accent", phx_disable_with: "Saving...", disabled: !@changeset.valid?  %>
     </div>

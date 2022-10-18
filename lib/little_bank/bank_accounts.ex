@@ -110,10 +110,15 @@ defmodule LittleBank.BankAccounts do
 
   alias LittleBank.BankAccounts.Transaction
 
+  def bank_account_transaction(%BankAccount{} = bank_account, %{"credit" => _credit, "amount" => _amount} = attrs) do
+    bank_account_transaction(bank_account, Util.atomize_map(attrs))
+  end
+
   def bank_account_transaction(%BankAccount{} = bank_account, %{credit: _credit, amount: _amount} = attrs) do
     Multi.new()
     |> Multi.insert(:transaction, Ecto.build_assoc(bank_account, :transactions)
     |> Transaction.changeset(attrs))
+    |> IO.inspect(label: "transaction changeset l:121")
     |> Multi.update(:bank_account, BankAccount.balance_changeset(bank_account, attrs))
     |> Repo.transaction()
   end

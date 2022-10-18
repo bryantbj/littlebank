@@ -8,4 +8,5 @@ defmodule Util do
       {key, value}, acc when is_binary(key) -> Map.put(acc, String.to_existing_atom(key), value)
     end)
   end
+  def atomize_map(map), do: key_to_atom(map)
 end

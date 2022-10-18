@@ -17,19 +17,23 @@ defmodule LittleBank.BankAccounts.Transaction do
 
   @doc false
   def changeset(transaction, attrs \\ %{}) do
-    attrs = Map.merge(%{date: Date.utc_today}, attrs) |> Util.key_to_atom()
-
     transaction
-    |> cast(attrs, [:vendor, :amount, :credit, :note, :date, :bank_account_id])
+    |> cast(set_defaults(attrs), [:vendor, :amount, :credit, :note, :date, :bank_account_id])
     |> validate_required([:vendor, :amount, :credit, :date])
     |> validate_number(:amount, greater_than: 0)
   end
 
   def form_changeset(transaction, attrs \\ %{}) do
     {transaction, @form_types}
-    |> Ecto.Changeset.cast(attrs, Map.keys(@form_types))
+    |> Ecto.Changeset.cast(set_defaults(attrs), Map.keys(@form_types))
     |> validate_required(Map.keys(@form_types))
     |> validate_number(:amount, greater_than: 0)
+  end
+
+  defp set_defaults(attrs \\ %{}) do
+    attrs = %{date: Date.utc_today, credit: false}
+    |> Map.merge(attrs)
+    |> Util.atomize_map()
   end
 
 end
