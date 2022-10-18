@@ -18,7 +18,7 @@ defmodule LittleBankWeb.ErrorHelpers do
   end
 
   defp error_tag_classes([class: classes]) when is_binary(classes) do
-    classes <> "invalid_feedback"
+    classes <> " invalid-feedback"
   end
 
   defp error_tag_classes([class: classes = [_|_]]) do

@@ -5,7 +5,6 @@ defmodule LittleBankWeb.BankAccountLive.FormComponent do
 
   @impl true
   def update(%{transaction: transaction, bank_account: _bank_account} = assigns, socket) do
-    IO.inspect(assigns, label: "assigns")
     changeset = transaction
     |> BankAccounts.change_transaction()
 
@@ -19,7 +18,7 @@ defmodule LittleBankWeb.BankAccountLive.FormComponent do
   def handle_event("validate", %{"transaction" => trx_params}, socket) do
     changeset =
       socket.assigns.transaction
-      |> BankAccounts.change_transaction(trx_params)
+      |> BankAccounts.transaction_form_changeset(trx_params)
       |> Map.put(:action, :validate)
 
     {:noreply, assign(socket, :changeset, changeset)}

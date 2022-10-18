@@ -16,18 +16,6 @@ html {
   filter: invert(1);
 }
 
-@layer base {
-  // h1 {
-  //   @apply text-2xl;
-  // }
-  // h2 {
-  //   @apply text-xl;
-  // }
-  // h3 {
-  //   @apply text-lg;
-  // }
-}
-
 @layer components {
   .container {
     @apply lg:w-2/3 lg:mx-auto lg:p-5 p-2;
@@ -43,9 +31,7 @@ html {
   display: none;
 }
 .invalid-feedback {
-  color: #a94442;
   display: block;
-  margin: -1rem 0 2rem;
 }
 
 /* LiveView specific classes for your customization */

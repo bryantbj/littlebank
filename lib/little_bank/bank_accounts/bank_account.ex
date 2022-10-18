@@ -4,7 +4,7 @@ defmodule LittleBank.BankAccounts.BankAccount do
   alias LittleBank.{Accounts.User, BankAccounts.Transaction}
 
   schema "bank_accounts" do
-    field :balance, :integer, default: 0
+    field :balance, LittleBank.EctoTypes.Money, default: 0
     belongs_to :user, User
     has_many :transactions, Transaction
 

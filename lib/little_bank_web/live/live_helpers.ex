@@ -1,6 +1,10 @@
 defmodule LittleBankWeb.LiveHelpers do
   import Phoenix.LiveView
+  import Phoenix.Component
   import Phoenix.LiveView.Helpers
+  import Phoenix.HTML.Form
+  import LittleBankWeb.ErrorHelpers
+  use Phoenix.HTML
 
   alias Phoenix.LiveView.JS
   alias LittleBank.{Accounts}
@@ -20,8 +24,46 @@ defmodule LittleBankWeb.LiveHelpers do
 
   def format_amount(num) do
     num
-    |> then(fn n -> n / 100.0 end)
     |> Number.Currency.number_to_currency()
+  end
+
+  @doc """
+  Renders an input field with its label and error messages
+
+  ## Examples
+    <.input_field form={f} field={:amount} text={"Amount *"}>
+      <%= text_input f, :amount, type: "tel", placeholder: "5.99" %>
+    </.input_field>
+  """
+  def input_field(assigns) do
+    assigns = assign_new(assigns, :root_class, fn -> nil end)
+
+    ~H"""
+    <div class="form-control" class={@root_class}>
+      <%= label @form, @field, class: "label" do %>
+        <%= content_tag :span, @text, class: "label-text" %>
+      <% end %>
+      <%= render_slot(@inner_block) %>
+      <%= label @form, @field, class: "label"  do %>
+        <%= error_tag @form, @field, class: "label-text-alt text-error" %>
+      <% end %>
+    </div>
+    """
+  end
+
+  def input_text_field(assigns) do
+    rest =
+      assigns
+      |> assigns_to_attributes([:form, :field, :text])
+      |> Keyword.merge([class: "input input-bordered"])
+
+    assigns = assign(assigns, :rest, rest)
+
+    ~H"""
+    <.input_field form={@form} field={@field} text={@text}>
+      <%= text_input @form, @field, @rest %>
+    </.input_field>
+    """
   end
 
 

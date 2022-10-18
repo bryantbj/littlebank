@@ -9,32 +9,42 @@
     phx-submit="save">
 
     <div class="grid grid-cols-1 gap-y-5">
-      <div class="form-control">
-        <%= label f, :amount, class: "label"  do %>
-          <span class="label-text">Amount *</span>
-        <% end %>
-        <%= text_input f, :amount,  type: "tel", placeholder: "5.99", class: "input input-bordered", autocomplete: "off" %>
-        <%= label f, :amount, class: "label"  do %>
-          <%= error_tag f, :amount, class: "label-text-alt" %>
-        <% end %>
-      </div>
+      <.input_text_field
+        form={f}
+        field={:amount}
+        text="Amount *"
+        type="tel"
+        placeholder="5.99"
+        autocomplete="off"
+      />
 
-      <div class="form-control">
-        <%= label f, :vendor, class: "label" do %>
-          Vendor *
-        <% end %>
-        <%= text_input f, :vendor,  type: "text", placeholder: "Roblox", class: "input input-bordered" %>
-        <%= error_tag f, :vendor %>
-      </div>
+      <.input_text_field
+        form={f}
+        field={:vendor}
+        text="Vendor *"
+        type="text"
+        placeholder="Roblox"
+      />
 
-      <div class="form-control">
-        <%= label f, :note, class: "label" do %>
-          Description *
-        <% end %>
-        <%= text_input f, :note,  type: "text", placeholder: "Robux, subscription, 'just for fun', etc", class: "input input-bordered" %>
-        <%= error_tag f, :note %>
-      </div>
+      <.input_text_field
+        form={f}
+        field={:note}
+        text="Description *"
+        type="text"
+        placeholder="Entertainment, birthday, etc"
+        autocomplete="off"
+      />
 
+      <.input_field
+        form={f}
+        field={:date}
+        text="Date *"
+        root_class="w-min flex-shrink"
+      >
+        <%= date_input f, :date, class: "input flex-shrink text-base-content" %>
+      </.input_field>
+
+      <%= if false do %>
       <div class="form-control w-min flex-shrink">
         <%= label f, :date, class: "label" do %>
           Date *
@@ -42,6 +52,7 @@
         <%=  date_input f, :date, class: "input flex-shrink text-base-content" %>
         <%= error_tag f, :date %>
       </div>
+      <% end %>
 
       <div class="btn-group">
         <%= radio_button f, :credit, true,
