@@ -1,8 +1,8 @@
-defmodule LittleBank.Repo.Migrations.CreateTransaction do
+defmodule LittleBank.Repo.Migrations.CreateTransactions do
   use Ecto.Migration
 
   def change do
-    create table(:transaction) do
+    create table(:transactions) do
       add :vendor, :string, null: false
       add :amount, :integer, null: false
       add :credit, :boolean, default: false, null: false
@@ -13,6 +13,6 @@ defmodule LittleBank.Repo.Migrations.CreateTransaction do
       timestamps()
     end
 
-    create index(:transaction, [:bank_account_id])
+    create index(:transactions, [:bank_account_id])
   end
 end

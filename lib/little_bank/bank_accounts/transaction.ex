@@ -2,7 +2,7 @@ defmodule LittleBank.BankAccounts.Transaction do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "transaction" do
+  schema "transactions" do
     field :amount, LittleBank.EctoTypes.Money
     field :credit, :boolean, default: false
     field :vendor, :string
