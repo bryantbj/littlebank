@@ -110,7 +110,7 @@ defmodule LittleBank.BankAccounts do
 
   alias LittleBank.BankAccounts.Transaction
 
-  def bank_account_transaction(%BankAccount{} = bank_account, attrs \\ %{}) do
+  def bank_account_transaction(%BankAccount{} = bank_account, %{credit: _credit, amount: _amount} = attrs) do
     Multi.new()
     |> Multi.insert(:transaction, Ecto.build_assoc(bank_account, :transactions)
     |> Transaction.changeset(attrs))
@@ -238,5 +238,9 @@ defmodule LittleBank.BankAccounts do
   """
   def change_transaction(%Transaction{} = transaction, attrs \\ %{}) do
     Transaction.changeset(transaction, attrs)
+  end
+
+  def transaction_form_changeset(%Transaction{} = transaction, attrs \\%{}) do
+    Transaction.form_changeset(transaction, attrs)
   end
 end

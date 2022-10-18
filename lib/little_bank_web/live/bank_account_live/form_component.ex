@@ -4,7 +4,7 @@ defmodule LittleBankWeb.BankAccountLive.FormComponent do
   alias LittleBank.{BankAccounts}
 
   @impl true
-  def update(%{transaction: transaction, bank_account: bank_account} = assigns, socket) do
+  def update(%{transaction: transaction, bank_account: _bank_account} = assigns, socket) do
     IO.inspect(assigns, label: "assigns")
     changeset = transaction
     |> BankAccounts.change_transaction()

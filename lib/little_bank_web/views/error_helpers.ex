@@ -8,13 +8,27 @@ defmodule LittleBankWeb.ErrorHelpers do
   @doc """
   Generates tag for inlined form input errors.
   """
-  def error_tag(form, field) do
+  def error_tag(form, field, opts \\ []) do
     Enum.map(Keyword.get_values(form.errors, field), fn error ->
       content_tag(:span, translate_error(error),
-        class: "invalid-feedback",
+        class: error_tag_classes(opts),
         phx_feedback_for: input_name(form, field)
       )
     end)
+  end
+
+  defp error_tag_classes([class: classes]) when is_binary(classes) do
+    classes <> "invalid_feedback"
+  end
+
+  defp error_tag_classes([class: classes = [_|_]]) do
+    classes
+    |> Enum.join(" ")
+    |> then(& &1 <> " invalid-feedback")
+  end
+
+  defp error_tag_classes([]) do
+    "invalid-feedback"
   end
 
   @doc """
