@@ -131,7 +131,7 @@ defmodule LittleBank.BankAccounts do
 
   ## Examples
 
-      iex> list_transaction()
+      iex> list_transactions()
       [%Transaction{}, ...]
 
   """

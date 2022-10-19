@@ -118,9 +118,9 @@ defmodule LittleBank.BankAccountsTest do
 
     @invalid_attrs %{amount: nil, credit: nil, vendor: nil}
 
-    test "list_transaction/0 returns all transaction" do
+    test "list_transactions/0 returns all transaction" do
       transaction = transaction_fixture()
-      assert BankAccounts.list_transaction() == [transaction]
+      assert BankAccounts.list_transactions() == [transaction]
     end
 
     test "get_transaction!/1 returns the transaction with given id" do
