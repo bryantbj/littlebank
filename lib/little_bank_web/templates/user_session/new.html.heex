@@ -1,12 +1,21 @@
-<h1>Log in</h1>
+<h1 class="text-2xl pb-2 mb-5 border-b-2 border-secondary">Log in to LittleBank</h1>
 
 <.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
   <%= if @error_message do %>
-    <div class="alert alert-danger">
+    <div class="alert alert-error">
       <p><%= @error_message %></p>
     </div>
   <% end %>
 
+  <.input_text_field form={f} field={:email} text="Email" type="email" placeholder="someone@example.com" />
+  <.input_field form={f} field={:password} text="Password">
+    <%= password_input f, :password, required: true, class: "input input-bordered" %>
+  </.input_field>
+  <.input_field form={f} field={:remember_me} text="Remember me for 60 days">
+    <%= checkbox f, :remember_me, required: true, class: "checkbox" %>
+  </.input_field>
+
+  <% if false do %>
   <%= label f, :email %>
   <%= email_input f, :email, required: true %>
 
@@ -15,13 +24,14 @@
 
   <%= label f, :remember_me, "Keep me logged in for 60 days" %>
   <%= checkbox f, :remember_me %>
+  <% end %>
 
   <div>
-    <%= submit "Log in" %>
+    <%= submit "Log in", class: "btn btn-primary" %>
   </div>
 </.form>
 
-<p>
+<p class="mt-3">
   <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
   <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new) %>
 </p>

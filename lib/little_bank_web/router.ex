@@ -20,7 +20,7 @@ defmodule LittleBankWeb.Router do
   scope "/", LittleBankWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    # get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
@@ -88,6 +88,7 @@ defmodule LittleBankWeb.Router do
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
+    get "/", Redirect, to: "/bank_account"
     live "/bank_account", BankAccountLive.Show, :show
     live "/bank_account/new", BankAccountLive.Show, :new
   end
