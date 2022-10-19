@@ -30,8 +30,8 @@ defmodule LittleBank.BankAccounts.Transaction do
     |> validate_number(:amount, greater_than: 0)
   end
 
-  defp set_defaults(attrs \\ %{}) do
-    attrs = %{date: Date.utc_today, credit: false}
+  defp set_defaults(%{} = attrs) do
+    %{date: Date.utc_today, credit: false}
     |> Map.merge(attrs)
     |> Util.atomize_map()
   end

@@ -114,11 +114,14 @@ defmodule LittleBank.BankAccounts do
     bank_account_transaction(bank_account, Util.atomize_map(attrs))
   end
 
-  def bank_account_transaction(%BankAccount{} = bank_account, %{credit: _credit, amount: _amount} = attrs) do
+  def bank_account_transaction(%BankAccount{} = bank_account, %{amount: _amount} = attrs) do
+    transaction_changeset = bank_account
+      |> Ecto.build_assoc(:transactions)
+      |> Transaction.changeset(attrs)
+      |> IO.inspect(label: "transaction changeset")
+
     Multi.new()
-    |> Multi.insert(:transaction, Ecto.build_assoc(bank_account, :transactions)
-    |> Transaction.changeset(attrs))
-    |> IO.inspect(label: "transaction changeset l:121")
+    |> Multi.insert(:transaction, transaction_changeset)
     |> Multi.update(:bank_account, BankAccount.balance_changeset(bank_account, attrs))
     |> Repo.transaction()
   end
@@ -245,7 +248,7 @@ defmodule LittleBank.BankAccounts do
     Transaction.changeset(transaction, attrs)
   end
 
-  def transaction_form_changeset(%Transaction{} = transaction, attrs \\%{}) do
+  def transaction_form_changeset(%Transaction{} = transaction, attrs \\ %{credit: false}) do
     Transaction.form_changeset(transaction, attrs)
   end
 end

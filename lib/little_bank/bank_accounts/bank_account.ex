@@ -20,7 +20,8 @@ defmodule LittleBank.BankAccounts.BankAccount do
   end
 
 
-  def balance_changeset(bank_account, %{amount: amount, credit: credit}) do
+  def balance_changeset(bank_account, %{amount: amount} = attrs) do
+    credit = Map.get(attrs, :credit, false)
     attrs = %{balance: credit && bank_account.balance + amount || bank_account.balance - amount}
 
     bank_account

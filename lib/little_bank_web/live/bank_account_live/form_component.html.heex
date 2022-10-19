@@ -1,5 +1,4 @@
 <div>
-  <% IO.inspect(@changeset) %>
   <.form
     let={f}
     for={@changeset}
@@ -39,28 +38,21 @@
         form={f}
         field={:date}
         text="Date *"
-        root_class="w-min flex-shrink"
       >
-        <%= date_input f, :date, class: "input flex-shrink text-base-content" %>
+        <%= date_input f, :date, class: "input flex-shrink w-min text-base-content" %>
       </.input_field>
-
-      <%= if false do %>
-      <div class="form-control w-min flex-shrink">
-        <%= label f, :date, class: "label" do %>
-          Date *
-        <% end  %>
-        <%=  date_input f, :date, class: "input flex-shrink text-base-content" %>
-        <%= error_tag f, :date %>
-      </div>
-      <% end %>
 
       <div class="btn-group">
         <%= radio_button f, :credit, true,
           "data-title": "Deposit",
-          class: "btn btn-sm", phx_update: "ignore"  %>
+          class: "btn btn-sm", phx_update: "ignore",
+          checked: Map.get(@changeset.changes, :credit)
+        %>
         <%= radio_button f, :credit, false,
           "data-title": "Purchase", 
-          class: "btn btn-sm", phx_update: "ignore", checked: true %>
+          class: "btn btn-sm", phx_update: "ignore",
+          checked: !Map.get(@changeset.changes, :credit)
+        %>
       </div>
     </div>
     <div class="modal-action">
